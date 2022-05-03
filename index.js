@@ -19,7 +19,7 @@ const main = async () => {
       `GET /repos/${owner}/${repo}/commits/${ref}`
     );
     console.log(`Commit: ${JSON.stringify(commit, undefined, 2)}`);
-    return commit.files;
+    return commit;
   });
 
   const commits = await Promise.all(values);
