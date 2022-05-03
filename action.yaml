@@ -1,16 +1,16 @@
 name: "Diff service"
 description: "Checks if service has been updated and runs specified scripts for that service"
 inputs:
-  services: # id of input
+  services-root: # id of input
     description: "Location of services"
     required: true
-    default: "./"
+    default: ""
   token: # id of input
     description: "Github token"
     required: true
 outputs:
-  time: # id of output
-    description: "The time the action ran"
+  affected-services: #id of output
+    description: "Names of services affected"
 
 runs:
   using: "node16"
