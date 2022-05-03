@@ -19,6 +19,7 @@ const main = async () => {
       const commit = await octokit.request(
         `GET /repos/${owner}/${repo}/commits/${ref}`
       );
+      console.log(`Commit: ${JSON.stringify(commit, undefined, 2)}`);
       return commit.files;
     })
   );
@@ -26,7 +27,7 @@ const main = async () => {
   const time = new Date().toTimeString();
   core.setOutput("time", time);
   console.log(`Services : ${services}`);
-  console.log(`Files updated are: ${JSON.stringify(files)}`);
+  //console.log(`Files updated are: ${JSON.stringify(files)}`);
   console.log(`The event payload: ${JSON.stringify(payload, undefined, 2)}`);
 };
 
