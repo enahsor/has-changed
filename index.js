@@ -11,6 +11,7 @@ const main = async () => {
   const { payload } = github.context;
   const { repository } = payload;
   const { name: owner } = repository.owner;
+  const { name: repo } = repository;
   const ref = payload.commits.id;
   const commit = await octokit.request(
     `GET /repos/${owner}/${repo}/commits/${ref}`
