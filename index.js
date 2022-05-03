@@ -2,13 +2,31 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const fs = require("fs");
 
-try {
+const main = async () => {
+  const token = core.getInput("token");
+  if (!token) {
+    throw new Error(`No token provided`);
+  }
+  const octokit = github.getOctokit(token);
+  const { payload } = github.context;
+  const { repository } = payload;
+  const { name: owner } = repository.owner;
+  const ref = payload.commits.id;
+  const commit = await octokit.request(
+    `GET /repos/${owner}/${repo}/commits/${ref}`
+  );
+  const files = commit.files;
   const services = core.getInput("services");
-  console.log(`Services : ${services}`);
   const time = new Date().toTimeString();
   core.setOutput("time", time);
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
-  console.log(`The event payload: ${payload}`);
+
+  console.log(`Services : ${services}`);
+  console.log(`Files updated are: ${JSON.stringify(files)}`);
+  console.log(`The event payload: ${JSON.stringify(payload, undefined, 2)}`);
+};
+
+try {
+  main();
 } catch (error) {
   core.setFailed(`Action failed with error ${error}`);
 }
