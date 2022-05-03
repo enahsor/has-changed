@@ -18,7 +18,7 @@ const main = async () => {
     const commit = await octokit.request(
       `GET /repos/${owner}/${repo}/commits/${ref}`
     );
-    return commit.data;
+    return commit.data.files;
   });
 
   const commits = await Promise.all(values);
