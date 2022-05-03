@@ -4,6 +4,7 @@ const fs = require("fs");
 
 try {
   const services = core.getInput("services");
+  console.log(`Services : ${services}`);
   const time = new Date().toTimeString();
   core.setOutput("time", time);
   const payload = JSON.stringify(github.context.payload, undefined, 2);
