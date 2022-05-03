@@ -1,0 +1,14 @@
+name: "Diff service"
+description: "Checks if service has been updated and runs specified scripts for that service"
+inputs:
+  services: # id of input
+    description: "Location of services"
+    required: true
+    default: "./"
+outputs:
+  time: # id of output
+    description: "The time the action ran"
+
+runs:
+  using: "node16"
+  main: "index.js"
