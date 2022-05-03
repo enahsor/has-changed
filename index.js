@@ -2,7 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const { join } = require("path");
 
-const EXCLUDE = [".github/"];
+const EXCLUDE = [".github"];
 
 const isFolder = (path) => {
   return path.includes("/");
