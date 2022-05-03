@@ -5,6 +5,9 @@ inputs:
     description: "Location of services"
     required: true
     default: "./"
+  token: # id of input
+    description: "Github token"
+    required: true
 outputs:
   time: # id of output
     description: "The time the action ran"
