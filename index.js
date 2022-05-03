@@ -45,9 +45,6 @@ const main = async () => {
   });
 
   core.setOutput("affected-services", affectedServices);
-
-  console.log(`Affected: ${JSON.stringify(affectedServices)}`);
-  console.log(`The event payload: ${JSON.stringify(payload, undefined, 2)}`);
 };
 
 try {
