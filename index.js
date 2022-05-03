@@ -18,8 +18,7 @@ const main = async () => {
     const commit = await octokit.request(
       `GET /repos/${owner}/${repo}/commits/${ref}`
     );
-    console.log(`Commit: ${JSON.stringify(commit, undefined, 2)}`);
-    return commit;
+    return commit.data;
   });
 
   const commits = await Promise.all(values);
