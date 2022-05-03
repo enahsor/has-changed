@@ -12,15 +12,17 @@ const main = async () => {
   const { repository } = payload;
   const { name: owner } = repository.owner;
   const { name: repo } = repository;
-  const ref = payload.commits.id;
-  const commit = await octokit.request(
-    `GET /repos/${owner}/${repo}/commits/${ref}`
-  );
-  const files = commit.files;
+  const refs = payload.commits.map((commit) => commit.id);
+  const files = [];
+  refs.map(async (ref) => {
+    const commit = await octokit.request(
+      `GET /repos/${owner}/${repo}/commits/${ref}`
+    );
+    files.push(...commit.files);
+  });
   const services = core.getInput("services");
   const time = new Date().toTimeString();
   core.setOutput("time", time);
-
   console.log(`Services : ${services}`);
   console.log(`Files updated are: ${JSON.stringify(files)}`);
   console.log(`The event payload: ${JSON.stringify(payload, undefined, 2)}`);
