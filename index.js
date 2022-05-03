@@ -13,13 +13,15 @@ const main = async () => {
   const { name: owner } = repository.owner;
   const { name: repo } = repository;
   const refs = payload.commits.map((commit) => commit.id);
-  const files = [];
-  refs.map(async (ref) => {
-    const commit = await octokit.request(
-      `GET /repos/${owner}/${repo}/commits/${ref}`
-    );
-    files.push(...commit.files);
-  });
+
+  const files = await Promise.all(
+    refs.map(async (ref) => {
+      const commit = await octokit.request(
+        `GET /repos/${owner}/${repo}/commits/${ref}`
+      );
+      return commit.files;
+    })
+  );
   const services = core.getInput("services");
   const time = new Date().toTimeString();
   core.setOutput("time", time);
